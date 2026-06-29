@@ -235,11 +235,18 @@ rfe_features = [
 ]
 
 
+import os
+
 @st.cache_resource  
 def load_components():
     try:
-        model = joblib.load('model.pkl')
-        scaler = joblib.load('scaler.pkl')
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        
+        model_path = os.path.join(BASE_DIR, 'model.pkl')
+        scaler_path = os.path.join(BASE_DIR, 'scaler.pkl')
+        
+        model = joblib.load(model_path)
+        scaler = joblib.load(scaler_path)
         return model, scaler, True
     except FileNotFoundError:
         return None, None, False
